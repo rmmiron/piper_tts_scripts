@@ -1,16 +1,16 @@
-piper_path=~/Applications/piper
-current_model_file="${piper_path}/current_model.txt"
+program_path=~/Applications/piper
+current_model_file="${program_path}/current_model.txt"
 current_model=$(cat "${current_model_file}")
 current_model_name="${current_model##*/}"
 current_model_name="${current_model_name%.*}"
 
 
 # Get a list with all models available
-all_models=( ${piper_path}/models/*.onnx )
+all_models=( ${program_path}/models/*.onnx )
 first_model="${all_models[0]}"
 last_model="${all_models[-1]}"
 
-echo "Current model: ${current_model_name}"
+echo "Current selected model: ${current_model_name}"
 
 #todo check if there is no model installed
 
