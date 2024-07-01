@@ -1,15 +1,23 @@
-base_dir="/home/rodrigom/Applications/piper"
+app_dir=~/Applications/piper
 
-m=( "${base_dir}/models/*.onnx" )
+all_models=( "${app_dir}/models/*.onnx" )
+current_model=$(basename $(cat "${app_dir}/current_model.txt"))
 
-current_model=$(basename $(cat "${base_dir}/current_model.txt"))
+all_models_names=$((for i in $all_models; do ( echo $(basename ${i})! ); done)|xargs)
+result=$(yad --form --field="Speak selected text now":CHK --field="Models":CB False "${all_models_names}")
 
-cm=$(for mn in $m; do basename "${mn}"; done | zenity --list --title="Choose the Voice Model for TTS" --text="Current model is ${current_model}" --column="Voice models available:" )
-
-if [[ ! $cm ]]; then
-   echo "Nothing selected."
+if [[ ! $result ]]; then
+   echo "Cancelled"
    exit 1
 fi
 
-echo "${base_dir}/models/${cm}">"${base_dir}/current_model.txt"
-zenity --notification --text="${cm}"
+speak_now=$(echo $result|cut -f1 -d '|')
+selected_model=$(echo $result|cut -f2 -d '|'|xargs)
+
+zenity --notification --text="${selected_model}"
+
+echo "${app_dir}/models/${selected_model}">"${app_dir}/current_model.txt"
+
+if [[ "$speak_now" == "TRUE" ]]; then
+   speak.sh
+fi
