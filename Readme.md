@@ -62,3 +62,11 @@ O usuário pode baixar vários modelos pré-treinados, diretamente no repositór
 
 **Obs.: Recomendo usar atalhos de teclado para automatizar a fala e seleção dos modelos; Exemplo, no meu sistema, configurei CTRL+ALT+/ para abrir a caixa de diálogo de seleção e CTRL+ALT+\* para "falar" o texto selecionado;
 
+# ToDo
+- Configurar parâmetros como velocidade de fala e *pitch*;
+- Melhorar o método de leitura das configurações;
+- Corrigir o problema no YAD e passar a usar somente ele;
+- Caixa de diálogo que permite selecionar o modelo direto do repositório e baixá-lo;
+- Melhoras na apresentação visual e notificações;
+
+*Enjoy it!*
