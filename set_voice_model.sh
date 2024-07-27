@@ -1,3 +1,4 @@
+#!/bin/bash
 if [[ ! $1 ]]; then exit 1; fi
 
 recebido="$(echo ${2} | tr 'A-Z' 'a-z')"

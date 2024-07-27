@@ -1,9 +1,12 @@
 #!/bin/bash
-#kill $(ps aux | awk '/Piper TTS/ {print $2}')
-#sleep 2
+kill $(ps aux | awk '/Piper TTS/ {print $2}')
+sleep 1
 
 app_dir="${HOME}/Applications/piper"
 script_dir="$(dirname "${BASH_SOURCE[0]}")"
+#speak_script="${script_dir}/speak.sh"
+speak_script="${script_dir}/speak.sh"
+stop_script="${script_dir}/stop_speaking.sh"
 
 # Obter o modelo de voz atualmente selecionado
 current_model=$(basename $(cat "${app_dir}/current_model.txt"))
@@ -34,16 +37,19 @@ do
    then all_models_names_cb="${all_models_names_cb}!"; fi
 done
 
-# Abrir caixa de diálogo
-yad --text="Speak the current selected text.\n" \
---form \
---title="Piper TTS" \
+# Show the dialog box
+yad --form --title="Piper TTS" \
+--text="Speak the current selected text.\n" \
 --field=":CB" "${all_models_names_cb}" \
---field=" :LBL" \
---button="Speak:${script_dir}/speak.sh" \
---button="Stop:${script_dir}/stop_speaking.sh" \
+--field="Pitch:NUM" '10!5..30!1!' \
+--field="Speed:NUM" '1!1..4!1!0.25!' \
+--field='Speak!Speak the selected text:BTN' "${speak_script}" \
+--field='Stop!Stop speakingb:BTN' "${stop_script}" \
+--align=center \
 --changed-action="${script_dir}/set_voice_model.sh" \
---borders=20 --on-top --no-focus \
-
+--focus-field=4 \
+--borders=10 --no-focus \
+--text-align=center \
+--no-buttons
 #--undecorated
 #kill $(ps aux | awk '/Piper TTS/ {print $2}')
