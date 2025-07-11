@@ -1,4 +1,4 @@
-# Bash scripts para TTS Piper
+# Scripts para TTS Piper
 
 Scripts para criar um sistema de TTS (text-to-speech) no Linux.  
 Usando atalhos de teclado, qualquer texto atualmente selecionado pode ser lido imediatamente pelo TTS;  
